@@ -9,7 +9,11 @@ RUN npm ci
 COPY client/ ./
 # Same-origin API: nginx proxies /api -> backend, so the bundle needs no host name.
 ARG REACT_APP_API_URL=/api
+# Sub-path the app is served from, e.g. /mangrove-guard (empty = site root).
+# Prefixes asset URLs and is the React Router basename.
+ARG PUBLIC_URL=
 ENV REACT_APP_API_URL=${REACT_APP_API_URL} \
+    PUBLIC_URL=${PUBLIC_URL} \
     GENERATE_SOURCEMAP=false
 RUN npm run build
 
