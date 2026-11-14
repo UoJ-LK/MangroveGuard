@@ -37,8 +37,8 @@ kubectl -n webapps-mangrove-guard create secret docker-registry github-secret \
 kubectl -n webapps-mangrove-guard create secret generic mangrove-guard-secret \
   --from-literal=MONGO_URI='mongodb://<user>:<password>@192.168.222.59:27017/mangroveguard?authSource=admin' \
   --from-literal=JWT_SECRET="$(openssl rand -base64 48)" \
-  --from-literal=EMAIL_USER='' \
-  --from-literal=EMAIL_PASS=''
+  --from-literal=EMAIL_USER='mangroveguard.team@gmail.com' \
+  --from-literal=EMAIL_PASS='<16-char Google App Password>'
 
 # 3. Everything else
 kubectl apply -k k8s
