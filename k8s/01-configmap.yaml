@@ -17,14 +17,20 @@ data:
 
   JWT_EXPIRE: "7d"
 
-  # Email. Sending is enabled only when EMAIL_USER and EMAIL_PASS (secret) are
-  # set AND one of EMAIL_SERVICE / EMAIL_HOST is set; otherwise emails are only
-  # logged to stdout. Use EMAIL_SERVICE (e.g. "gmail") OR EMAIL_HOST/PORT.
-  # Port 465 = implicit TLS, 587 = STARTTLS.
+  # Email via Gmail SMTP. EMAIL_USER (the Gmail address) and EMAIL_PASS (a
+  # Google App Password, not the account password) are in the secret; sending
+  # stays in log-only mode until both are set.
+  #
+  # Host + port 587 (STARTTLS) rather than EMAIL_SERVICE "gmail": the "gmail"
+  # preset uses port 465, which the cluster's egress has blocked before (see
+  # the MyUoJ auth service). Leave EMAIL_SERVICE empty - when set it overrides
+  # EMAIL_HOST/PORT.
   EMAIL_SERVICE: ""
-  EMAIL_HOST: ""
+  EMAIL_HOST: "smtp.gmail.com"
   EMAIL_PORT: "587"
-  EMAIL_FROM: ""
+  # Gmail rewrites From to the authenticated account unless the address is a
+  # verified "Send mail as" alias, so keep this the same as EMAIL_USER.
+  EMAIL_FROM: '"Mangrove Admin" <mangroveguard.team@gmail.com>'
   EMAIL_COOLDOWN_MINUTES: "30"
 
   SMS_COOLDOWN_MINUTES: "30"
